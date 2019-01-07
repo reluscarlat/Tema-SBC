@@ -1,0 +1,172 @@
+%Student: SCARLAT Relu-Nicolae
+%Facultatea: Automatica si Calculatoare
+%Grupa: 341B3
+
+% FACTS:
+% __________________________________________________________________________________________
+% employee(<name>,<gender>,<age>,<department>,<position>,<salary>)
+employee(radu_andrei, male, 38, executive, ceo, 6000).
+employee(david_george, male, 34, technology, cto, 5000).
+employee(badic_mihaela, female, 35, operation, coo, 3500).
+employee(andu_mircea, male, 36, finance, cfo, 4500).
+employee(leon_cornel, male, 32, technology, technology_manager, 3500).
+employee(ciuta_ion, male, 27, technology, developer, 2000).
+employee(botea_alina, female, 26, technology, developer, 2000).
+employee(cazacu_dumitru, male, 29, technology, developer, 2000).
+employee(culita_daniel, male, 23, technology, developer, 2000).
+employee(arion_tudor, male, 25, technology, developer, 2000).
+employee(miclaus_dorel, male, 22, technology, developer, 2000).
+employee(munteanu_cornel, male, 32, technology, developer, 2000).
+employee(scutaru_mirel, male, 33, technology, developer, 2000).
+employee(zincu_aurel, male, 32, operation, operation_manager, 1300).
+employee(raicu_gianina, female, 27, operation, customer_operation_oficer, 900).
+employee(rucinschi_cristian, male, 29, operation, customer_operation_oficer, 900).
+employee(popa_darius, male, 29, finance, payroll_specialist, 1300).
+
+% superior(<boss>,<subaltern>)
+superior(radu_andrei, david_george).
+superior(radu_andrei, andu_mircea).
+superior(radu_andrei, badic_mihaela).
+superior(david_george, leon_cornel). 
+superior(leon_cornel, ciuta_ion).
+superior(leon_cornel, botea_alina).
+superior(leon_cornel, cazacu_dumitru).
+superior(leon_cornel, culita_daniel).
+superior(leon_cornel, arion_tudor).
+superior(leon_cornel, miclaus_dorel).
+superior(leon_cornel, munteanu_cornel).
+superior(leon_cornel, scutaru_mirel).
+superior(badic_mihaela, zincu_aurel).
+superior(zincu_aurel, raicu_gianina).
+superior(zincu_aurel, rucinschi_cristian).
+superior(andu_mircea, popa_darius).
+
+% LISTS:
+% __________________________________________________________________________________________
+% department(<department_name>,<members[]>)
+department(executive,[radu_andrei]).
+department(technology,[david_george, leon_cornel, ciuta_ion, 
+  	botea_alina, cazacu_dumitru, culita_daniel, arion_tudor, 
+    miclaus_dorel, munteanu_cornel, scutaru_mirel]).
+department(operation,[badic_mihaela,zincu_aurel,raicu_gianina,
+  	rucinschi_cristian]).
+department(finance,[popa_darius,andu_mircea]).
+
+
+% project(<project_name>,<project_leader>,<team[]>)
+project(nemesis, scutaru_mirel,[ciuta_ion, botea_alina,
+	culita_daniel, arion_tudor,miclaus_dorel,rucinschi_cristian,
+    popa_darius]).
+project(pegasus, cazacu_dumitru, [munteanu_cornel, 
+	ciuta_ion, miclaus_dorel, raicu_geanina,popa_darius]).
+
+% RULES: 
+% __________________________________________________________________________________________
+% 1) Get direct superior for one 
+% .
+get_superior_of(X):-
+    superior(Z,X),
+    format('Direct superior of ~w is = ', [X]),
+    write(Z),nl.
+
+% 2) Get direct sublaterns for one employee.
+get_subalterns_of(X):-
+    superior(X,Z),
+    format('Direct subaltern of ~w is = ', [X]),
+    write(Z),nl.
+
+% 3) Get all superiors for one employee.
+get_superiors_of(X):-
+    superior(Z,X),
+    write('superior is = '),
+    write(Z),nl,
+    get_superiors_of(Z).
+
+% 4) Get employees older than.
+get_employees_older_than(Age):-
+    employee(Name,_,Age1,_,_,_),
+    Age1 @> Age,
+    write(Name),nl.
+
+% 5) Get employees from department
+get_employees_from_department(Department):-
+    employee(Name,_,_,Department1,_,_),
+    Department = Department1,
+    write(Name),nl.
+
+% 6) Get employees based on gender
+get_employees_by_gender(Gender):-
+    employee(Name,Gender1,_,_,_,_),
+    Gender = Gender1,
+    write(Name),nl.
+
+% 7) List the team for project
+get_team_list_for_project(Project):-
+    project(Project,_,List),
+    write('Project = '),
+    write(Project),nl,
+    write(List).
+
+% 8)
+list([H|T],H,T).
+ 
+% 9) Verifies if one employee is member of a list
+member_of_list(A, [A|_]).
+member_of_list(A, [_|B]) :-
+    member_of_list(A,B).
+
+
+% 10) List employees from department D and who 
+% work at project P
+get_employee_for_project_and_department(P,D):-
+    project(P,_,List1),
+    department(D, List2),
+    write(List1),
+    write(List2),
+    intersection(List1, List2, I),
+    write(I).
+	
+% 11) Sort department employes list (ASCENDENT)
+sort_asc_employes_from_dep(D):-
+    department(D, List),
+   	sort(0,  @<, List,  Sorted),
+    write(Sorted).
+
+% 12) Sort department employes list (DESCENDENT)
+sort_desc_employes_from_dep(D):-
+    department(D, List),
+   	sort(0,  @>, List,  Sorted),
+    write(Sorted).
+
+% 13) Print salaries in lei for each employee 
+show_salaries_in_lei :-
+    employee(N,_,_,_,_,S),
+    Salary is S*4.67,
+    format('~w has salary = ~w lei', [N,Salary]),nl.
+
+% 14) Print VAT in lei for each employee
+show_VAT_in_lei :-
+    employee(N,_,_,_,_,S),
+    Salary is S*4.67*0.16,
+    format('~w pays VAT = ~w lei', [N,Salary]),nl.
+
+% 15) Max function implementation.
+max(X,Y,N1,_,Max) :-
+    X >= Y,!,
+    Max = N1.
+
+max(_,_,_,N2,Max) :-
+    Max = N2.
+
+% 16 Compare employee salaries
+compare_salary_of(Name1, Name2) :-
+    employee(Name1,_,_,_,_,S1),
+    employee(Name2,_,_,_,_,S2),
+    format('~w earns ~w euros.',[Name1,S1]),nl,
+    format('~w earns ~w euros.',[Name2,S2]),nl,
+    max(S1,S2,Name1,Name2,Name3),
+    format('~w earns more.',[Name3]),nl.
+    
+    
+    
+

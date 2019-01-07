@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<carShop>
+
+    <salesteam>
+        <salesman>
+            <name>John Carter</name>
+            <brand>BMW</brand>
+            <age>28</age>
+        </salesman>
+
+        <salesman>
+            <name>Grant Cardone</name>
+            <brand>Audi</brand>
+            <age>29</age>
+        </salesman>
+
+        <salesman>
+            <name>Zig Ziglar</name>
+            <brand>Porsche</brand>
+            <age>31</age>
+        </salesman>
+
+        <salesman>
+            <name>Brian Tracy</name>
+            <brand>Volkswagen</brand>
+            <age>27</age>
+        </salesman>
+    </salesteam>
+
+    <cars>
+        <car>
+            <brand>BMW</brand>
+            <model>M345</model>
+            <year>2017</year>
+            <fuel>Gas</fuel>
+            <miles>23000</miles>
+            <price>29000</price>
+            <engine>
+                <weight>400</weight>
+                <capacity>3.0</capacity>
+                <power>375</power>
+            </engine>
+        </car>
+
+        <car>
+            <brand>BMW</brand>
+            <model>550</model>
+            <year>2017</year>
+            <fuel>diesel</fuel>
+            <miles>45000</miles>
+            <price>40000</price>
+            <engine>
+                <weight>550</weight>
+                <capacity>3.0</capacity>
+                <power>400</power>
+            </engine>
+        </car>
+
+        <car>
+            <brand>BMW</brand>
+            <model>720li</model>
+            <year>2018</year>
+            <fuel>diesel</fuel>
+            <miles>1000</miles>
+            <price>85000</price>
+            <engine>
+                <weight>700</weight>
+                <capacity>3.6</capacity>
+                <power>650</power>
+            </engine>
+        </car>
+
+        <car>
+            <brand>Audi</brand>
+            <model>A3</model>
+            <year>2018</year>
+            <fuel>gas</fuel>
+            <miles>1000</miles>
+            <price>33000</price>
+            <engine>
+                <weight>500</weight>
+                <capacity>2.5</capacity>
+                <power>350</power>
+            </engine>
+        </car>
+
+        <car>
+            <brand>Audi</brand>
+            <model>A6</model>
+            <year>2016</year>
+            <fuel>diesel</fuel>
+            <miles>80000</miles>
+            <price>35000</price>
+            <engine>
+                <weight>600</weight>
+                <capacity>3.0</capacity>
+                <power>350</power>
+            </engine>
+        </car>
+
+        <car>
+            <brand>Audi</brand>
+            <model>A8L</model>
+            <year>2018</year>
+            <fuel>diesel</fuel>
+            <miles>0</miles>
+            <price>110000</price>
+            <engine>
+                <weight>800</weight>
+                <capacity>4.0</capacity>
+                <power>760</power>
+            </engine>
+        </car>
+
+        <car>
+            <brand>Porsche</brand>
+            <model>Cayman 718 S</model>
+            <year>2018</year>
+            <fuel>gas</fuel>
+            <miles>0</miles>
+            <price>73000</price>
+            <engine>
+                <weight>500</weight>
+                <capacity>3.5</capacity>
+                <power>500</power>
+            </engine>
+        </car>
+
+        <car>
+            <brand>Porsche</brand>
+            <model>Boxter 718 S</model>
+            <year>2018</year>
+            <fuel>gas</fuel>
+            <miles>0</miles>
+            <price>75000</price>
+            <engine>
+                <weight>500</weight>
+                <capacity>3.5</capacity>
+                <power>510</power>
+            </engine>
+        </car>
+
+        <car>
+            <brand>Porsche</brand>
+            <model>911 GT3 RS</model>
+            <year>2018</year>
+            <fuel>gas</fuel>
+            <miles>0</miles>
+            <price>201000</price>
+            <engine>
+                <weight>500</weight>
+                <capacity>3.5</capacity>
+                <power>780</power>
+            </engine>
+        </car>
+
+        <car>
+            <brand>Volkswagen</brand>
+            <model>Pasat</model>
+            <year>2018</year>
+            <fuel>diesel</fuel>
+            <miles>0</miles>
+            <price>28000</price>
+            <engine>
+                <weight>500</weight>
+                <capacity>2.0</capacity>
+                <power>175</power>
+            </engine>
+        </car>
+
+        <car>
+            <brand>Volkswagen</brand>
+            <model>Golf R</model>
+            <year>2018</year>
+            <fuel>gas</fuel>
+            <miles>0</miles>
+            <price>41000</price>
+            <engine>
+                <weight>500</weight>
+                <capacity>3.0</capacity>
+                <power>450</power>
+            </engine>
+        </car>
+
+        <car>
+            <brand>Volkswagen</brand>
+            <model>Beetle</model>
+            <year>2018</year>
+            <fuel>gas</fuel>
+            <miles>0</miles>
+            <price>22000</price>
+            <engine>
+                <weight>450</weight>
+                <capacity>2.0</capacity>
+                <power>170</power>
+            </engine>
+        </car>
+    </cars>
+
+    <rules>
+    	<currencyRule>
+            <if>
+                <rel>is</rel>
+                <currency>x</currency>
+                <what>euros</what>
+            </if>
+            <then>
+                <multiplyValue>multiplier</multiplyValue>
+                <rel>is</rel>
+                <which>4.67</which>
+            </then>
+        </currencyRule>
+        <currencyRule>
+            <if>
+                <rel>is</rel>
+                <currency>x</currency>
+                <what>lei</what>
+            </if>
+            <then>
+                <multiplyValue>multiplier</multiplyValue>
+                <rel>is</rel>
+                <which>1</which>
+            </then>
+        </currencyRule>
+        <currencyRule>
+            <if>
+                <rel>is</rel>
+                <currency>x</currency>
+                <what>dollar</what>
+            </if>
+            <then>
+                <multiplyValue>multiplier</multiplyValue>
+                <rel>is</rel>
+                <which>4.1</which>
+            </then>
+        </currencyRule>
+        <currencyRule>
+            <if>
+                <rel>is</rel>
+                <currency>x</currency>
+                <what>pounds</what>
+            </if>
+            <then>
+                <multiplyValue>multiplier</multiplyValue>
+                <rel>is</rel>
+                <which>5.2</which>
+            </then>
+        </currencyRule>
+    </rules>    
+    
+</carShop>
+

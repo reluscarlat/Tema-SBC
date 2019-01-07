@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Responsive Site</title>
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./css/magazin_style.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+
+</head>
+<body>
+
+    <nav class="navbar navbar-default" style="height: 80px !important;">
+        <div class="container-fluid">
+            <div class="navbar-header">
+            <a class="navbar-brand" style="padding-left:370px" href="#">
+                <h2>Cars Shop</h2>
+            </a>
+            </div>
+        </div>
+    </nav>
+
+
+    <div class="team">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-2">
+                    <button id="teamButton" type="button" class="btn btn-lg btn-primary">Show salesman</button>
+                </div>
+                <div class="col-md-10">
+                    <table class="table table-hover table-dark">
+                        <thead>
+                            <tr>
+                                <th scope="col">Name</th>
+                                <th scope="col">Brand</th>
+                                <th scope="col">Age</th>
+                            </tr>
+                        </thead>
+                        <tbody id="salesmenTableBody">
+                            <tr>
+                                <td>Teo</td>
+                                <td>Porsche</td>
+                                <td>35</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="cars">
+        <div class="container">
+            <div class="row">
+                <div id="cars-list">
+                    <div class="col-md-4">
+                        <h2><span class="label label-default label-primary">Brand</span></h2>
+                        <h2><span class="label label-default label-primary">Model</span></h2>
+                        <h2><span class="label label-default label-primary">Year</span></h2>
+                        <h2><span class="label label-default label-primary">Fuel</span></h2>
+                        <h2><span class="label label-default label-primary">Miles</span></h2>
+                        <h2><span class="label label-default label-primary">Capacity</span></h2>
+                        <h2><span class="label label-default label-primary">Power</span></h2>
+                        <h2><span class="label label-default label-primary">Weight</span></h2>
+                        <h2><span class="label label-default label-primary">Price</span></h2>
+                    </div>
+                </div>    
+            </div>
+        </div>
+            <div class="row ">
+                <div class="buttons">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-2"></div>
+                    <div class="col-md-4" style="padding-left:150px">
+                        <button id="next-button" type="button" class="btn btn-lg btn-success">NEXT</button>    
+                    </div>
+                    <div class="col-md-2"></div>
+                    <div class="col-md-2"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        
+        let currency = 1;
+
+        let backButton = document.getElementById("back-button");
+
+        let pageNumber = 0;
+        let i = 0;
+        let cars = document.getElementById("cars-list");
+
+        let nextButton = document.getElementById("next-button");
+        nextButton.addEventListener('click', function() {   
+            let xhr = new XMLHttpRequest();
+            xhr.open('GET','./db/carShopDb.xml',true);
+            xhr.onload = function() {
+                if(xhr.status == 200) {
+                    
+                    let carsView = document.getElementById("cars-list");
+                    carsView.innerHTML = " ";
+
+                    let xmlDoc = this.responseXML;
+                    let cars = xmlDoc.getElementsByTagName("cars")[0];
+                    i = i % cars.getElementsByTagName("car").length;
+                    for(let k=0; k<3; k++) {
+                        let brand = cars.getElementsByTagName("brand")[i+k].textContent;
+                        let model = cars.getElementsByTagName("model")[i+k].textContent;
+                        let year = cars.getElementsByTagName("year")[i+k].textContent;
+                        let fuel = cars.getElementsByTagName("fuel")[i+k].textContent;
+                        let miles = cars.getElementsByTagName("miles")[i+k].textContent;
+                        let price = cars.getElementsByTagName("price")[i+k].textContent;
+                        let weight = cars.getElementsByTagName("weight")[i+k].textContent;
+                        let capacity = cars.getElementsByTagName("capacity")[i+k].textContent;
+                        let power = cars.getElementsByTagName("power")[i+k].textContent;
+                        
+                        let car =`
+                        <div class="col-md-4">
+                            <h2><span class="label label-default label-primary">Brand</span>${brand}</h2>
+                            <h2><span class="label label-default label-primary">Model</span>${model}</h2>
+                            <h2><span class="label label-default label-primary">Year</span>${year}</h2>
+                            <h2><span class="label label-default label-primary">Fuel</span>${fuel}</h2>
+                            <h2><span class="label label-default label-primary">Miles</span>${miles}</h2>
+                            <h2><span class="label label-default label-primary">Capacity</span>${capacity}</h2>
+                            <h2><span class="label label-default label-primary">Power</span>${power}</h2>
+                            <h2><span class="label label-default label-primary">Price</span>${weight}</h2>
+                            <h2><span class="label label-default label-primary">Price</span>${price*currency}</h2>
+                        </div>`;
+
+                        carsView.innerHTML = carsView.innerHTML +" "+ car;
+                    }
+                    i = i + 3;
+                };   
+            }
+            xhr.send();   
+        });
+
+
+
+
+        let salesmenNumber = 1;
+        let j = 0;
+
+        let teamButton = document.getElementById("teamButton");
+        teamButton.addEventListener('click', function() {   
+            if(j < salesmenNumber) {
+                // loadTeam();
+                let xhr = new XMLHttpRequest();
+                //xhr.open('GET','./ajax_fundamentals-master/ajax_fundamentals-master/users.json',true);
+                xhr.open('GET','./db/carShopDb.xml',true);
+                xhr.onload = function() {
+                    if(xhr.status == 200) {
+                        let taleBody = document.getElementById("salesmenTableBody");
+                        let tableRow = document.createElement("tr");
+                        let name = document.createElement("td");
+                        let brand = document.createElement("td");
+                        let age = document.createElement("td");
+
+                        let xmlDoc = this.responseXML;
+                        let carShop = xmlDoc.getElementsByTagName("carShop")[0];
+                        let salesmen = carShop.getElementsByTagName("salesteam")[0];
+
+                        let xmlName = salesmen.getElementsByTagName("name")[j].textContent;
+                        let xmlBrand = salesmen.getElementsByTagName("brand")[j].textContent;
+                        let xmlAge = salesmen.getElementsByTagName("age")[j].textContent;
+
+                        name.textContent = xmlName;
+                        brand.textContent = xmlBrand;
+                        age.textContent = xmlAge;
+
+                        tableRow.appendChild(name);
+                        tableRow.appendChild(brand);
+                        tableRow.appendChild(age);
+                        taleBody.appendChild(tableRow);
+                        j++;
+                        salesmenNumber = salesmen.childNodes.length;
+                    }
+                }     
+                xhr.send();          
+            }
+        });    
+    </script>
+</body>
+</html>
